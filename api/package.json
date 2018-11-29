@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/Fralez/TicTacToe-JaP/issues"
   },
-  "homepage": "https://github.com/Fralez/TicTacToe-JaP#readme"
+  "homepage": "https://github.com/Fralez/TicTacToe-JaP#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10",
+    "mongoose": "^5.3.14",
+    "mongoose-unique-validator": "^2.0.2"
+  }
 }
