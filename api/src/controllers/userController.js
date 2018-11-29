@@ -22,6 +22,35 @@ module.exports = {
     }
 
     return res.status(201).json(user);
-  }
+  },
+
+  getUser: async (req, res, next) => {
+    const { userId } = req.params;
+
+    if (!ObjectID.isValid(userId)) throw new Error({ flag: 'User Id is not valid', error: 'INVALID_ID' });
+
+    try {
+      const user = User.findById(userId);
+
+      if (!user) throw new Error({ flag: 'User is null', error: 'NULL_USER' });
+    
+      return res.status(200).json(user);
+    } catch (error) {
+
+      return res.status(404).json(error);
+    }
+  },
+
+  // PUT: User Victories/Ties/Defeats
+  /**
+   * Structure:
+   * {
+   *  victories: <input>,
+   *  ties: <input>,
+   *  defeats: <input>
+   * }
+   */
+
+  // GET: Ranking 
   
 };
