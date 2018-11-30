@@ -10,8 +10,10 @@ Router.get('/', ctrl.index);
 // Post user
 Router.post('/', ctrl.postUser);
 
-// Get a user
-Router.get('/userId', ctrl.getUser);
+// Get user
+Router.get('/:userId', ctrl.getUser);
+
+Router.patch('/:userId', ctrl.patchMatch);
 
 
 module.exports = {
