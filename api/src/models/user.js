@@ -1,8 +1,8 @@
 const { Schema, model } = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const userSchema = new Schema({
-  
+
   name: { // *
     type: String,
     required: [true, 'No name?'],
@@ -13,8 +13,6 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'No password?']
   },
-
-  ranking: Number,
   
   victories: {
     type: Number,
@@ -32,7 +30,14 @@ const userSchema = new Schema({
     type: Number,
     min: 0,
     default: 0
-  }
+  },
+
+  matches: [{
+    default: [],
+    type: Schema.Types.ObjectId,
+    ref: 'Match'
+  }]
+
 });
 
 // Apply the uniqueValidator plugin to userSchema

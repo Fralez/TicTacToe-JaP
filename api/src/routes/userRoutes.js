@@ -11,10 +11,16 @@ Router.get('/', ctrl.index);
 Router.post('/', ctrl.postUser);
 
 // Get user
-Router.get('/:userId', ctrl.getUser);
+Router.get('/:userId/details', ctrl.getUser);
 
-Router.patch('/:userId', ctrl.patchMatch);
+// Update user personal info
+Router.put('/:userId', ctrl.putUserInfo);
 
+// Get users ranking
+Router.get('/ranking', ctrl.getRanking);
+
+// Get user's played matches
+Router.get('/:userId/matches', ctrl.getUserMatches);
 
 module.exports = {
   Router

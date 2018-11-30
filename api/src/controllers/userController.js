@@ -1,81 +1,85 @@
-const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
 
-// Model
+// Models
 const { User } = require('../models/user');
 
 module.exports = {
 
-  // Get user's index
+  // Get users index
   index: async (req, res, next) => {
     const users = await User.find({});
 
     return res.status(200).json(users);
   },
   
-  // Post user
+  // Post a user
   postUser: async (req, res, next) => {
     const user = new User(req.body);
     
     try {
       await user.save();
     } catch (error) {
-      return res.status(400).json({ flag: 'Error at saving', error: error });
+
+      return res.status(400).json({ flag: 'Error at saving' });
     }
 
     return res.status(201).json(user);
   },
 
-  // Get user
+  // Get a user
   getUser: async (req, res, next) => {
     try {
       const { userId } = req.params;
-      if (!ObjectID.isValid(userId)) throw new Error({ flag: 'User Id is not valid', error: 'INVALID_ID' });
+      if (!ObjectID.isValid(userId)) throw new Error('INVALID_ID');
       
-      const user = User.findById(userId);
+      const user = await User.findById(userId);
 
-      if (!user) throw new Error({ flag: 'User is null', error: 'NULL_USER' });
+      if (!user) throw new Error('NULL_USER');
     
       return res.status(200).json(user);
     } catch (error) {
 
-      return res.status(404).json(error);
+      return res.status(404).json(error.message);
     }
   },
 
-  // PATCH: User Victories/Ties/Defeats
-  /**
-   * Structure:
-   * {
-   *  <field>: ${victories||ties||defeats}, // The field you want to update
-   * }
-   */
-  patchMatch: async (req, res, next) => {
-    // TODO
+  // Update user's personal info
+  putUserInfo: async (req, res, next) => {    
     try {
-      // User Id
       const { userId } = req.params;
-      if (!ObjectID.isValid(userId)) throw new Error({ flag: 'User Id is not valid', error: 'INVALID_ID' });
+      if (!ObjectID.isValid(userId)) throw new Error('INVALID_ID');
       
-      // Update data
-      const { field } = req.body;
-      if (field != 'victories' || 'ties' || 'defeats'); // No funca xd
+      const user = await User.findByIdAndUpdate(userId, req.body, { new: true });
 
-      // object.prop === object[prop]
-
-      let field = await User.findById(userId)[field];
-      // Sums +1 to the field beacuse there is always going to be only 1 match which sums to the total matches.
-      field++
-
-      await User.findByIdAndUpdate(userId, field);
-
-      return res.status(201).json(field);
+      return res.status(201).json(user);
     } catch (error) {
       
-      res.status(404).json(error);
+      return res.status(404).json(error.message);
     }
+
+  },
+  
+  // Get Ranking
+  getRanking: async (req, res, next) => {
+    let users = await User.find({}, 'name victories');
+
+    if (users.length > 1) {
+      users.sort((a, b) => {
+        return b.victories - a.victories;
+      });
+    }
+
+    res.status(200).json(users);
+  },
+
+  // Get user's played matches
+  getUserMatches: async (req, res, next) => {
+    const { userId } = req.params;
+    if(!ObjectID.isValid(userId)) return res.status(404).json({ error: 'INVALID_ID' });
+
+    const { matches } = await User.findById(userId).populate('matches');
+
+    return res.status(200).json(matches);
   }
 
-  // GET: Ranking 
-  
 };

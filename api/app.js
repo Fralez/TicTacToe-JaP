@@ -14,9 +14,11 @@ app.use(bodyParser.json());
 
 // Routes middlewares
 const userRouter = require('./src/routes/userRoutes').Router;
+const matchRouter = require('./src/routes/matchRoutes').Router;
 
 // Routes
-app.use('/api/user', userRouter);
+app.use('/api/users', userRouter);
+app.use('/api/matches', matchRouter);
 
 app.set('port', process.env.PORT || 8081);
 const PORT = app.get('port');
