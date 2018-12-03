@@ -1,12 +1,14 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <h1> Hello World! </h1>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-content>
+      <router-view />
+    </v-content>
+  </v-app>
 </template>
 
-<style>
+<script>
 
-</style>
+export default {
+  name: 'App'
+}
+</script>
