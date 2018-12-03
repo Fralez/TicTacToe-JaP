@@ -4,7 +4,7 @@ const Router = express.Router();
 // Controller
 const ctrl = require('../controllers/matchController');
 
-// Get a played matches index
+// Get the played matches' index
 Router.get('/', ctrl.index);
 
 // Post a match
