@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="teal lighten-1">    
     <v-content>
       <router-view />
     </v-content>
@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 
 export default {
   name: 'App'
