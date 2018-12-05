@@ -2,7 +2,7 @@ const express = require('express');
 const Router = express.Router();
 
 // Controller
-const ctrl = require('../controllers/userController');
+const ctrl = require('../controllers/usersController');
 
 // Get user's index
 Router.get('/', ctrl.index);

@@ -2,7 +2,7 @@ const express = require('express');
 const Router = express.Router();
 
 // Controller
-const ctrl = require('../controllers/matchController');
+const ctrl = require('../controllers/matchesController');
 
 // Get the played matches' index
 Router.get('/', ctrl.index);

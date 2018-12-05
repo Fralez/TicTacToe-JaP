@@ -13,8 +13,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Routes middlewares
-const userRouter = require('./src/routes/userRoutes').Router;
-const matchRouter = require('./src/routes/matchRoutes').Router;
+const userRouter = require('./src/routes/usersRoutes').Router;
+const matchRouter = require('./src/routes/matchesRoutes').Router;
 
 // Routes
 app.use('/api/users', userRouter);
