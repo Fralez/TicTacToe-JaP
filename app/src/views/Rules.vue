@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="dialogState" width="700">
-      <v-card>
+      <v-card color="teal lighten-3">
         <v-card-title class="headline teal">
           Rules
         </v-card-title>
