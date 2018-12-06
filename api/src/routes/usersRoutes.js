@@ -13,6 +13,9 @@ Router.post('/', ctrl.postUser);
 // Get user
 Router.get('/:userId/details', ctrl.getUser);
 
+// Find out if the user is among logged in users
+Router.post('/login', ctrl.logIn);
+
 // Update user personal info
 Router.put('/:userId', ctrl.putUserInfo);
 

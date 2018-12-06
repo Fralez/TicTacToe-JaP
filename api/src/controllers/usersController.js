@@ -43,6 +43,20 @@ module.exports = {
     }
   },
 
+  // Find out if the user is among logged in users
+  logIn: async (req, res, next) => {
+    const user = req.body;
+    const matchingUser = await User.find({
+      name: user.name,
+      password: user.password
+    })
+    if (matchingUser.length !== 0) {
+      return res.status(200).json({ logIn: true });
+    } else {
+      return res.status(404).json({ logIn: false });      
+    }
+  },
+
   // Update user's personal info
   putUserInfo: async (req, res, next) => {    
     try {
@@ -69,7 +83,9 @@ module.exports = {
       });
     }
 
-    res.status(200).json(users);
+    const bestUsers = users.slice(0, 5);
+
+    res.status(200).json(bestUsers);
   },
 
   // Get user's played matches
