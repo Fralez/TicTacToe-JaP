@@ -12,6 +12,9 @@ export default {
     getOne: (userId) => {
       return axios.get(`${API_URL}/users/${userId}/details`)
     },
+    logIn: (user) => {
+      return axios.post(`${API_URL}/users/login`, user)
+    },
     updateOne: (updatedInfo) => {
       return axios.put(`${API_URL}/users/${userId}`, updatedInfo)
     },

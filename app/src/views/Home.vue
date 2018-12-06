@@ -1,6 +1,6 @@
 <template>
   <div class="Home">
-    <Navbar />
+    <Navbar app/>
     <v-container fluid align-center>
       <v-layout row wrap justify-space-around align-center>
 

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="teal lighten-1">    
+  <v-app class="teal lighten-1 disable--UserSelect">    
     <v-content>
       <router-view />
     </v-content>
@@ -11,3 +11,9 @@ export default {
   name: 'App'
 }
 </script>
+
+<style>
+.disable--UserSelect {
+  user-select: none;
+}
+</style>

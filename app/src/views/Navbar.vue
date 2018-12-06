@@ -27,7 +27,6 @@
 
       <!-- Desktop -->
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn router :to="{ name: 'play' }" flat class="subheading font-weight-regular">Play</v-btn>
         <v-btn flat class="subheading font-weight-regular" @click="openRules">Rules</v-btn>
       </v-toolbar-items>
     

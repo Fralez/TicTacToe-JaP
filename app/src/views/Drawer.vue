@@ -5,13 +5,6 @@
         <v-flex>
           <v-list>
             
-            <v-list-tile router :to="{ name: 'play' }" flat class="subheading font-weight-regular">
-              <v-list-tile-action>
-                <v-icon>play_arrow</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-title>Play</v-list-tile-title>
-            </v-list-tile>
-
             <v-list-tile flat class="subheading font-weight-regular" @click="openRules">
               <v-list-tile-action>
                 <v-icon>chrome_reader_mode</v-icon>

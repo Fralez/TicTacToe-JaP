@@ -2,8 +2,8 @@
   <div>
     <v-container class="my-5">
 
-      <v-card flat color="rgba(0, 128, 128, .6)">
-        <v-card-title class="display-1 d-flex signIp--title">
+      <v-card flat hover color="rgba(0, 128, 128, .6)">
+        <v-card-title class="display-1 d-flex ranking--title">
           Ranking
         </v-card-title>
         <v-layout row wrap :class="`pa-3`" align-center v-for="(user, index) in rankingUsers" :key="index">
@@ -27,8 +27,13 @@
             <div class="headline">{{ user.victories }}</div>
           </v-flex>
         </v-layout>
-        <v-divider />
+        <v-layout row>
+          <v-flex xs12 class="d-flex ranking--title">
+            <v-icon class="py-3" v-if="rankingUsers.length == 0">clear</v-icon>
+          </v-flex>
+        </v-layout>
       </v-card>
+
 
     </v-container>
   </div>
@@ -36,8 +41,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// Tic-Tac-Toe API
-import API from '../general/ticTacToeApi.js'
 
   export default {
     name: 'Ranking',
@@ -48,15 +51,17 @@ import API from '../general/ticTacToeApi.js'
     },
     mounted() {
       (async () => {
-        const res = await API.Users.ranking()
-        const users = res.data
-        this.$store.dispatch('PUSH_RANKING_USERS', { users });
+        this.$store.dispatch('API_USERS', { type: 'ranking' });
       })()
     }
   }
 </script>
 
 <style scoped>
+.ranking--title {
+  justify-content: center;
+}
+
 .firstRank {
   background-color: #FFD700;
 }
@@ -72,5 +77,4 @@ import API from '../general/ticTacToeApi.js'
 .normalChip {
   background-color: teal;
 }
-
 </style>

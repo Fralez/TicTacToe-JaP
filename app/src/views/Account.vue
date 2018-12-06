@@ -1,6 +1,6 @@
 <template>
-  <div class="play">
-    
+  <div>
+
   </div>
 </template>
 

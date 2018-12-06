@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home'
+import Account from './views/Account'
 import Play from './components/Play'
 import History from './components/History'
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/history',
       name: 'history',
       component: History
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: Account
     }
   ]
 })
