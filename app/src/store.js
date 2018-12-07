@@ -10,8 +10,12 @@ export default new Vuex.Store({
   state: {
     // Rules dialog
     dialogState: false,
-    // Home drawer
-    drawerState: false,
+    // User form snackbar
+    snackbar: {
+      state: false,
+      color: '',
+      text: ''
+    },
     // Ranking top 5 users
     rankingUsers: []
   },
@@ -19,19 +23,19 @@ export default new Vuex.Store({
     dialogState: state => {
       return state.dialogState
     },
-    drawerState: state => {
-      return state.drawerState
-    },
     rankingUsers: state => {
       return state.rankingUsers
+    },
+    snackbar: state => {
+      return state.snackbar
     }
   },
   mutations: {
     changeDialogState: (state, payload) => {
       state.dialogState = payload.state;
     },
-    changeDrawerState: (state, payload) => {
-      state.drawerState = payload.state;
+    changeSnackbar: (state, payload) => {
+      state.snackbar = payload
     },
     addRankingUsers: (state, payload) => {
       state.rankingUsers = payload.users;
@@ -41,8 +45,8 @@ export default new Vuex.Store({
     HANDLE_DIALOG_STATE: ({ commit }, payload) => {
       commit('changeDialogState', payload);
     },
-    HANDLE_DRAWER_STATE: ({ commit }, payload) => {
-      commit('changeDrawerState', payload);
+    HANDLE_SNACKBAR: ({ commit }, payload) => {
+        commit('changeSnackbar', payload)
     },
     API_USERS: async (context, payload) => {
       const actionType = payload.type;

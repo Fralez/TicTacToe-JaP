@@ -1,14 +1,8 @@
 <template>
   <div class="navbar">
     <v-toolbar flat app class="teal lighten-1">
-      
-      <!-- Mobile -->
-      <v-toolbar-side-icon class="hidden-md-and-up" @click="openDrawer">
-        <v-icon>menu</v-icon>
-      </v-toolbar-side-icon>
 
-      <!-- Desktop icon -->
-      <v-toolbar-side-icon disabled v-if="this.$vuetify.breakpoint.mdAndUp">
+      <v-toolbar-side-icon disabled>
         <img src="../assets/TicTacToe.svg" class="ticTacToeIcon">
       </v-toolbar-side-icon>
       
@@ -21,8 +15,8 @@
       <v-spacer></v-spacer>
  
       <!-- Mobile icon -->
-      <v-toolbar-side-icon disabled v-if="!this.$vuetify.breakpoint.mdAndUp">
-        <img src="../assets/TicTacToe.svg" class="ticTacToeIcon">
+      <v-toolbar-side-icon @click="openRules" v-if="!this.$vuetify.breakpoint.mdAndUp">
+        <v-icon color="grey darken-4">chrome_reader_mode</v-icon>
       </v-toolbar-side-icon>
 
       <!-- Desktop -->

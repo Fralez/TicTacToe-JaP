@@ -13,7 +13,12 @@
               color="black"
               :rules="formRules"
               required
-            ></v-text-field>
+            >
+              <v-tooltip slot="append" top color="teal" v-if="signUpMode">
+                  <v-icon @click="validateName" slot="activator" color="black" dark>check_circle</v-icon>
+                  <span class="black--text">Validate name</span>
+              </v-tooltip>
+            </v-text-field>
             <v-text-field
               type="password"
               v-model="user.password"
@@ -37,23 +42,19 @@
         </v-card>
       </v-flex>
     </v-layout>
-    
-    <div class="text-xs-center">
-      <v-snackbar v-model="snackbar" bottom :timeout="2000" color="teal accent-3">
-        <span class="black--text">Sign up successful!</span>
-        <v-btn color="teal darken-4" flat @click="snackbar = false">
-          Close
-        </v-btn>
-      </v-snackbar>
-    </div>
+
+    <Snackbar />
   </v-container>
 </template>
 
 <script>
 import API from '../general/ticTacToeApi.js'
 
+import Snackbar from '../views/Snackbar'
+
   export default {
     name: 'UserForm',
+    components: { 'Snackbar': Snackbar },
     data() {
       return {
         formText: 'Log In',
@@ -68,37 +69,81 @@ import API from '../general/ticTacToeApi.js'
         signUpMode: false,
         // Form state
         submitted: false,
-        // Sign up snackbar
-        snackbar: false
       }
     },
     methods: {
       async submitForm() {
         if(!this.signUpMode) {
           // Log In
-          const res = await API.Users.logIn(this.user);
+          try {
+            const res = await API.Users.logIn(this.user)
+            
+            if(res.data.logIn) this.submitted = true && this.$router.push({ name: 'account' })
+          } catch (error) {
+            const snackbarPayload = {
+              state: true,
+              color: 'error',
+              text: 'Error, please verify the fields filled'
+            }
 
-          if(res.data.logIn) this.submitted = true && this.$router.push({ name: 'account' })
-          
-          this.handleSubmit(this.submitted)
+            this.$store.dispatch('HANDLE_SNACKBAR', snackbarPayload) 
+          }
         } else {
           // Sign Up
-          const res = await API.Users.postOne(this.user)
-          if(res.status == 201) {
-            this.submitted = true
-            this.snackbar = true
+          let snackbarPayload =  { }
+          try {
+            const res = await API.Users.postOne(this.user)
+            if(res.status == 201) {
+              this.submitted = true
+              snackbarPayload = {
+                state: true,
+                color: 'teal accent-3',
+                text: 'Sign Up Successful! Now Log in'
+              }
+              this.changeMode()
+            }  
+          } catch (error) {
+            snackbarPayload = {
+              state: true,
+              color: 'error',
+              text: 'Error, please verify the fields filled'
+            }
           }
-          this.changeMode()
+          this.$store.dispatch('HANDLE_SNACKBAR', snackbarPayload)
         }
-      },
-      handleSubmit() {
-        
       },
       changeMode() {
         this.signUpMode = !this.signUpMode
         this.user = {
           name: `${this.user.name}`,
           password: ''
+        }
+      },
+      async validateName() {
+        if(this.signUpMode) {
+          if(!this.user.name) return null  
+
+          const res = await API.Users.index();
+
+          const userWithName = res.data.find(({ name }) => {
+            return this.user.name === name
+          })
+
+          let snackbarPayload = { };
+          if (userWithName) {
+            snackbarPayload = {
+              state: true,
+              color: 'error',
+              text: 'Username already taken'
+            }
+          } else {
+            snackbarPayload = {
+              state: true,
+              color: 'success',
+              text: 'Username available'
+            }
+          }
+          this.$store.dispatch('HANDLE_SNACKBAR', snackbarPayload)
         }
       }
     },
@@ -109,9 +154,6 @@ import API from '../general/ticTacToeApi.js'
         } else {
           this.formText = 'Log In'        
         }
-      },
-      dialog (val) {
-        if (!val) return
       }
     }
   }
