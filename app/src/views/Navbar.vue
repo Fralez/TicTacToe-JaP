@@ -16,7 +16,7 @@
  
       <!-- Mobile icon -->
       <v-toolbar-side-icon @click="openRules" v-if="!this.$vuetify.breakpoint.mdAndUp">
-        <v-icon color="grey darken-4">chrome_reader_mode</v-icon>
+        <v-icon color="grey darken-4">info</v-icon>
       </v-toolbar-side-icon>
 
       <!-- Desktop -->
