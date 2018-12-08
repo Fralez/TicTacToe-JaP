@@ -17,7 +17,9 @@ export default new Vuex.Store({
       text: ''
     },
     // Ranking top 5 users
-    rankingUsers: []
+    rankingUsers: [],
+    // Active user
+    activeUser : null
   },
   getters: {
     dialogState: state => {
@@ -28,6 +30,9 @@ export default new Vuex.Store({
     },
     snackbar: state => {
       return state.snackbar
+    },
+    activeUser: state => {
+      return state.activeUser
     }
   },
   mutations: {
@@ -39,6 +44,9 @@ export default new Vuex.Store({
     },
     addRankingUsers: (state, payload) => {
       state.rankingUsers = payload.users;
+    },
+    activeUser: (state, payload) => {
+      state.activeUser = payload.user[0]
     }
   },
   actions: {
@@ -50,12 +58,20 @@ export default new Vuex.Store({
     },
     API_USERS: async (context, payload) => {
       const actionType = payload.type;
+
       switch(actionType) {
         case 'ranking':
           var res = await API.Users.ranking()
           var users = res.data
           context.commit('addRankingUsers', { users })
-        break;
+          break;
+        
+        case 'logIn':
+          const res = await API.Users.logIn(payload.user)
+          const user = res.data.user
+          if(res.data.logIn) context.commit('activeUser', { user })
+          break;
+        
       }
     }
   }

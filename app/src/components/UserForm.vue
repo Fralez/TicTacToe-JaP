@@ -66,26 +66,25 @@ import Snackbar from '../views/Snackbar'
           password: ''
         },
         // Form mode
-        signUpMode: false,
-        // Form state
-        submitted: false,
+        signUpMode: false
       }
     },
     methods: {
       async submitForm() {
         if(!this.signUpMode) {
           // Log In
-          try {
-            const res = await API.Users.logIn(this.user)
-            
-            if(res.data.logIn) this.submitted = true && this.$router.push({ name: 'account' })
-          } catch (error) {
+          this.$store.dispatch('API_USERS', {
+            type: 'logIn',
+            user: this.user
+          })
+          if(this.$store.getters.activeUser) {
+            this.$router.push({ name: 'account' })
+          } else {
             const snackbarPayload = {
               state: true,
               color: 'error',
               text: 'Error, please verify the fields filled'
             }
-
             this.$store.dispatch('HANDLE_SNACKBAR', snackbarPayload) 
           }
         } else {

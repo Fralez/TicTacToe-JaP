@@ -15,8 +15,8 @@
       <v-spacer></v-spacer>
  
       <!-- Mobile icon -->
-      <v-toolbar-side-icon @click="openRules" v-if="!this.$vuetify.breakpoint.mdAndUp">
-        <v-icon color="grey darken-4">info</v-icon>
+      <v-toolbar-side-icon large @click="openRules" v-if="!this.$vuetify.breakpoint.mdAndUp">
+        <v-icon large color="grey darken-4">info_outline</v-icon>
       </v-toolbar-side-icon>
 
       <!-- Desktop -->

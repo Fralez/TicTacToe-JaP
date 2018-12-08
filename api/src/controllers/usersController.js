@@ -51,7 +51,7 @@ module.exports = {
       password: user.password
     })
     if (matchingUser.length !== 0) {
-      return res.status(200).json({ logIn: true });
+      return res.status(200).json({ user: matchingUser, logIn: true });
     } else {
       return res.status(404).json({ logIn: false });      
     }
