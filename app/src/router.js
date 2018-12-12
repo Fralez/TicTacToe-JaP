@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+// Views
 import Home from './views/Home'
-import Account from './views/Account'
-import Play from './components/Play'
+// Components
+import Account from './components/Account'
+import Play from './views/Play'
 import History from './components/History'
 
 Vue.use(Router)
@@ -15,19 +17,19 @@ export default new Router({
       component: Home
     },
     {
-      path: '/play',
-      name: 'play',
-      component: Play
+      path: '/account/:userId',
+      name: 'account',
+      component: Account,
     },
     {
-      path: '/history',
+      path: '/history/:userId',
       name: 'history',
       component: History
     },
     {
-      path: '/account',
-      name: 'account',
-      component: Account
-    }
+      path: '/play',
+      name: 'play',
+      component: Play
+    },
   ]
 })

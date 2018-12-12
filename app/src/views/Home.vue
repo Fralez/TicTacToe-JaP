@@ -21,12 +21,11 @@
 import SignIn from '../components/UserForm'
 import Ranking from '../components/Ranking'
 
-
   export default {
     components: {
       'SignIn': SignIn,
       'Ranking': Ranking,
-    }    
+    }
   }
 </script>
 

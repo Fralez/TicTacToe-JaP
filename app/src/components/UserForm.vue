@@ -73,13 +73,13 @@ import Snackbar from '../views/Snackbar'
       async submitForm() {
         if(!this.signUpMode) {
           // Log In
-          this.$store.dispatch('API_USERS', {
-            type: 'logIn',
-            user: this.user
-          })
-          if(this.$store.getters.activeUser) {
-            this.$router.push({ name: 'account' })
-          } else {
+          try {
+            await this.$store.dispatch('API_USERS', {
+              type: 'logIn',
+              user: this.user
+            })
+            this.$router.push({ name: 'account', params: { userId: this.$store.getters.activeUser._id } })
+          } catch (error) {
             const snackbarPayload = {
               state: true,
               color: 'error',

@@ -3,26 +3,24 @@ const API_URL = 'http://localhost:8081/api'
 
 export default {
   Users: {
-    index: () => {
-      return axios.get(`${API_URL}/users`)
-    },
-    postOne: (user) => {
-      return axios.post(`${API_URL}/users`, user)
-    },
-    getOne: (userId) => {
-      return axios.get(`${API_URL}/users/${userId}/details`)
-    },
-    logIn: (user) => {
-      return axios.post(`${API_URL}/users/login`, user)
-    },
-    updateOne: (updatedInfo) => {
-      return axios.put(`${API_URL}/users/${userId}`, updatedInfo)
-    },
-    ranking: () => {
-      return axios.get(`${API_URL}/users/ranking`)
-    },
-    matches: (userId) => {
-      return axios.get(`${API_URL}/users/${userId}/matches`)
-    }
+    index: () => axios.get(`${API_URL}/users`),
+
+    postOne: user => axios.post(`${API_URL}/users`, user),
+
+    getOne: userId => axios.get(`${API_URL}/users/${userId}/details`),
+
+    logIn: user => axios.post(`${API_URL}/users/login`, user),
+
+    updateOne: (userId, updatedInfo) => axios.put(`${API_URL}/users/${userId}`, updatedInfo),
+
+    ranking: () => axios.get(`${API_URL}/users/ranking`),
+
+    matches: userId => axios.get(`${API_URL}/users/${userId}/matches`)
+  },
+  Matches: {
+    index: () => axios.get(`${API_URL}/matches`),
+
+    postOne: match => axios.post(`${API_URL}/matches`, match)
+
   }
 }

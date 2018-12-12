@@ -34,7 +34,6 @@
         </v-layout>
       </v-card>
 
-
     </v-container>
   </div>
 </template>
@@ -49,7 +48,7 @@ import { mapGetters } from 'vuex'
         'rankingUsers'
       ])
     },
-    mounted() {
+    created() {
       (async () => {
         this.$store.dispatch('API_USERS', { type: 'ranking' });
       })()
