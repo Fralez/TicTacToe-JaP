@@ -6,6 +6,9 @@
         <span class="display-2 d-flex ranking--title mb-4" app>
           History
         </span>
+        <span class="subheading d-flex ranking--title mt-4 ml-3" app>
+          Most Recent
+        </span>
 
         <v-card flat color="rgba(0, 128, 128, .6)" width="1000" v-for="(match, index) in matches" :key="index">
           <v-layout row wrap :class="`pa-3`" align-center >
@@ -37,9 +40,6 @@ import API from '../general/ticTacToeApi.js'
       }
     },
     methods: {
-      againstPlayer(match) {
-        
-      },
       matchResult(match) {
         if(match.tie) {
           return 'Tie'

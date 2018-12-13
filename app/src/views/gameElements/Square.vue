@@ -15,6 +15,7 @@
     },
     methods: {
       clickSquare() {
+        // Emit that it was clicked to the board
         if(!this.touched) this.$emit('clickedSquare', this.squareId)
         this.touched = true
       }
